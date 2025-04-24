@@ -42,7 +42,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const fetchUserData = async (token: string) => {
     try {
       // Ajuste a URL conforme seu endpoint de API
-      const response = await axios.get('/api/auth/login', {
+      const response = await axios.get('/auth/login', {
         headers: {
           Authorization: `Bearer ${token}`
         }

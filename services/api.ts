@@ -1,9 +1,9 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosInstance, AxiosResponse, InternalAxiosRequestConfig  } from 'axios';
 import Cookies from 'js-cookie';
 
 // Crie uma instância do axios com configurações padrão
 const api: AxiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://35.222.71.107',
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/swagger',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -11,14 +11,14 @@ const api: AxiosInstance = axios.create({
 
 // Adiciona o token de autenticação em todas as requisições
 api.interceptors.request.use(
-  (config: AxiosRequestConfig): AxiosRequestConfig => {
+  (config: InternalAxiosRequestConfig) => {
     const token = Cookies.get('auth_token');
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 // Intercepta erros de autenticação (401)
