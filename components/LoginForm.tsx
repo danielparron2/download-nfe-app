@@ -1,4 +1,5 @@
 import React, { useState, FormEvent } from 'react';
+import Link from 'next/link';
 import { useAuth } from '../contexts/AuthContext';
 
 export default function LoginForm() {
@@ -88,6 +89,13 @@ export default function LoginForm() {
           </button>
         </div>
       </form>
+
+      <div className="text-center mt-4">
+        <p className="text-gray-600">Ainda não tem uma conta?</p>
+        <Link href="/signup" className="text-blue-600 hover:underline">
+          Cadastre-se
+        </Link>
+      </div>
     </div>
   );
 }
