@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 
 // Crie uma instância do axios com configurações padrão
 const api: AxiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/swagger',
+  baseURL: 'http://localhost:3000',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -16,6 +16,7 @@ api.interceptors.request.use(
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+    console.log('Request:', config);
     return config;
   },
   (error) => Promise.reject(error),
