@@ -10,18 +10,14 @@ interface LayoutProps {
 export default function Layout({ children, requireAuth = true }: LayoutProps) {
   return requireAuth ? (
     <ProtectedRoute>
-      <div className="min-h-screen bg-gray-100">
+      <div className="min-vh-100 bg-light">
         <Navbar />
-        <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-          {children}
-        </main>
+        <main className="container py-4">{children}</main>
       </div>
     </ProtectedRoute>
   ) : (
-    <div className="min-h-screen bg-gray-100">
-      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        {children}
-      </main>
+    <div className="min-vh-100 bg-light">
+      <main className="container py-4">{children}</main>
     </div>
   );
 }

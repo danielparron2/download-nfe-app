@@ -11,46 +11,42 @@ const Dashboard: NextPage = () => {
         <title>Dashboard - Sistema</title>
         <meta name="description" content="Dashboard do sistema" />
       </Head>
-      
-      <div className="px-4 py-6">
-        <h1 className="text-3xl font-bold text-gray-900 mb-6">Dashboard</h1>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Link href="/certificados">
-            <div className="bg-white overflow-hidden shadow rounded-lg cursor-pointer hover:shadow-md transition-shadow">
-              <div className="p-6">
-                <div className="flex items-center">
-                  <div className="flex-shrink-0 p-3 rounded-md bg-blue-500 text-white">
+
+      <div className="container py-4">
+        <h1 className="display-5 fw-bold text-dark mb-4">Dashboard</h1>
+
+        <div className="row g-4">
+          <div className="col-md-6">
+            <Link href="/certificados" passHref>
+              <div className="card shadow-sm cursor-pointer">
+                <div className="card-body d-flex align-items-center">
+                  <div className="bg-primary text-white rounded-circle p-3">
                     <FaIdCard size={24} />
                   </div>
-                  <div className="ml-5">
-                    <h2 className="text-xl font-semibold text-gray-900">Certificados Digitais</h2>
-                    <p className="mt-1 text-sm text-gray-600">
-                      Cadastre e gerencie certificados digitais do cliente
-                    </p>
+                  <div className="ms-3">
+                    <h5 className="card-title mb-0">Certificados Digitais</h5>
+                    <p className="text-muted">Cadastre e gerencie certificados digitais do cliente</p>
                   </div>
                 </div>
               </div>
-            </div>
-          </Link>
+            </Link>
+          </div>
 
-          <Link href="/notas-fiscais">
-            <div className="bg-white overflow-hidden shadow rounded-lg cursor-pointer hover:shadow-md transition-shadow">
-              <div className="p-6">
-                <div className="flex items-center">
-                  <div className="flex-shrink-0 p-3 rounded-md bg-green-500 text-white">
+          <div className="col-md-6">
+            <Link href="/notas-fiscais" passHref>
+              <div className="card shadow-sm cursor-pointer">
+                <div className="card-body d-flex align-items-center">
+                  <div className="bg-success text-white rounded-circle p-3">
                     <FaFileDownload size={24} />
                   </div>
-                  <div className="ml-5">
-                    <h2 className="text-xl font-semibold text-gray-900">Notas Fiscais</h2>
-                    <p className="mt-1 text-sm text-gray-600">
-                      Download e gerenciamento de notas fiscais
-                    </p>
+                  <div className="ms-3">
+                    <h5 className="card-title mb-0">Notas Fiscais</h5>
+                    <p className="text-muted">Download e gerenciamento de notas fiscais</p>
                   </div>
                 </div>
               </div>
-            </div>
-          </Link>
+            </Link>
+          </div>
         </div>
       </div>
     </Layout>

@@ -12,7 +12,7 @@ export default function LoginForm() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
-    
+
     if (!email || !password) {
       setError('Por favor, preencha todos os campos.');
       return;
@@ -33,68 +33,55 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
-      <div className="text-center">
-        <h1 className="text-2xl font-bold">Login</h1>
-        <p className="mt-2 text-gray-600">Entre para acessar o sistema</p>
-      </div>
-      
-      {error && (
-        <div className="p-3 text-sm text-red-600 bg-red-100 rounded-md">
-          {error}
-        </div>
-      )}
-      
-      <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-            E-mail
-          </label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="seu@email.com"
-          />
-        </div>
+    <div className="card mx-auto" style={{ maxWidth: '400px' }}>
+      <div className="card-body">
+        <h5 className="card-title text-center">Login</h5>
+        <p className="text-center text-muted">Entre para acessar o sistema</p>
 
-        <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-            Senha
-          </label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            autoComplete="current-password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
+        {error && <div className="alert alert-danger">{error}</div>}
 
-        <div>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label htmlFor="email" className="form-label">
+              E-mail
+            </label>
+            <input
+              type="email"
+              className="form-control"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="password" className="form-label">
+              Senha
+            </label>
+            <input
+              type="password"
+              className="form-control"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
           <button
             type="submit"
+            className="btn btn-primary w-100"
             disabled={isLoading}
-            className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
           >
             {isLoading ? 'Entrando...' : 'Entrar'}
           </button>
-        </div>
-      </form>
+        </form>
 
-      <div className="text-center mt-4">
-        <p className="text-gray-600">Ainda não tem uma conta?</p>
-        <Link href="/signup" className="text-blue-600 hover:underline">
-          Cadastre-se
-        </Link>
+        <div className="text-center mt-3">
+          <p className="text-muted">Ainda não tem uma conta?</p>
+          <Link href="/signup" className="text-primary">
+            Cadastre-se
+          </Link>
+        </div>
       </div>
     </div>
   );
