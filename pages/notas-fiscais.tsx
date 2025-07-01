@@ -8,9 +8,14 @@ interface Certificado {
   certificadoId: number;
   cnpj?: string;
   apelido?: string;
-  certificado?: string | Blob; // Pode ser Base64 ou Blob
+  certificado?: string | Blob | { type: string; data: any[] };
   senhaCertificado?: string;
 }
+
+// Type guard para verificar se o certificado é do tipo Buffer
+const isBufferObject = (obj: any): obj is { type: string; data: any[] } => {
+  return obj && typeof obj === 'object' && obj.type === 'Buffer' && Array.isArray(obj.data);
+};
 
 export default function NotasFiscais() {
   const { user } = useAuth();
@@ -62,24 +67,32 @@ export default function NotasFiscais() {
       return;
     }
 
-    let certBase64 = certificado.certificado;
-
-    // Se for Blob, converte para Base64
-    if (certificado.certificado instanceof Blob) {
-      certBase64 = await blobToBase64(certificado.certificado);
-    }
+    let certBase64: string;
 
     try {
-      // dtInicial e dtFinal já vêm no formato YYYY-MM-DD pelo input type="date"
-      const params = new URLSearchParams({
+      if (certificado.certificado instanceof Blob) {
+        //alert('é um blob');
+        certBase64 = await blobToBase64(certificado.certificado);
+      } else if (typeof certificado.certificado === 'string') {
+        //alert('é uma string');
+        certBase64 = certificado.certificado;
+      } else if (isBufferObject(certificado.certificado)) {
+        //alert('converte buffer para string ');
+        //const buffer = new Uint8Array(certificado.certificado.data);
+        //certBase64 = btoa(String.fromCharCode(...buffer));
+        certBase64 = String.fromCharCode(...new Uint8Array(certificado.certificado.data));
+      } else {
+        throw new Error('Formato de certificado inválido.');
+      }
+
+      const response = await api.post('/wsdownload', {
         cnpj: certificado.cnpj || '',
-        certBase64: certBase64 as string,
+        certBase64,
         certPassword: certificado.senhaCertificado || '',
         dtInicio: dtInicial,
         dtTermino: dtFinal,
       });
 
-      const response = await api.get(`/wsdownload?${params.toString()}`);
       setResultado(JSON.stringify(response.data, null, 2));
     } catch (error) {
       console.error('Erro ao buscar notas:', error);
