@@ -40,12 +40,12 @@ jobs:
       - name: Autenticacao Google Cloud
         uses: google-github-actions/auth@v1
         with:
-          credentials_json: ${{ secrets.GCP_KEY }}
+          credentials_json: ${{ secrets.GCP_KEY_P }}
 
       - name: Configurar Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
         with:
-          project_id: ${{ secrets.GCP_PROJECT }}
+          project_id: ${{ secrets.GCP_PROJECT_P }}
           export_default_credentials: true
           install_components: kubectl
 
@@ -56,7 +56,7 @@ jobs:
 
       - name: Busca credenciais do cluster
         run: |
-          gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --region ${{ secrets.GKE_REGION }}
+          gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME_P }} --region ${{ secrets.GKE_REGION }}
 
       - name: Atualiza IMAGEM no deployment
         run: |
