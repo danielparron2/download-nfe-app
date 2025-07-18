@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 // Crie uma instância do axios com configurações padrão
 const api: AxiosInstance = axios.create({
   //baseURL: 'http://localhost:3000',
-  baseURL: 'http://35.222.71.107',
+  baseURL: 'http://34.133.169.204/',
   headers: {
     'Content-Type': 'application/json',
   },
